@@ -6,8 +6,8 @@ A machinecoin-core docker image (originally by @github.com/machinecoin-project).
 
 ## Tags
 
-- `0.14.0`, `0.14`, `latest` ([0.14/Dockerfile](https://github.com/machinecoin-project/docker-machinecoin-core/blob/master/0.14/Dockerfile))
-- `0.14.0-alpine`, `0.14-alpine` ([0.14/alpine/Dockerfile](https://github.com/machinecoin-project/docker-machinecoin-core/blob/master/0.14/alpine/Dockerfile))
+- `0.16.0`, `0.16`, `latest` ([0.16/Dockerfile](https://github.com/machinecoin-project/docker-machinecoin-core/blob/master/0.16/Dockerfile))
+- `0.16.0-alpine`, `0.16-alpine` ([0.16/alpine/Dockerfile](https://github.com/machinecoin-project/docker-machinecoin-core/blob/master/0.16/alpine/Dockerfile))
 
 **Picking the right tag**
 
@@ -201,17 +201,8 @@ curl --data-binary '{"jsonrpc":"1.0","id":"1","method":"getnetworkinfo","params"
 
 For historical reasons, the following tags are still available and automatically updated when the underlying base image (_Alpine Linux_ or _Debian stable_) is updated as well:
 
-- `0.14.2`, `0.14` ([0.14/Dockerfile](https://github.com/machinecoin-project/docker-machinecoin-core/blob/master/0.14/Dockerfile))
-- `0.14.2-alpine`, `0.14-alpine` ([0.14/alpine/Dockerfile](https://github.com/machinecoin-project/docker-machinecoin-core/blob/master/0.14/alpine/Dockerfile))
-
-- `0.13.2`, `0.13` ([0.13/Dockerfile](https://github.com/machinecoin-project/docker-machinecoin-core/blob/master/0.13/Dockerfile))
-- `0.13.2-alpine`, `0.13-alpine` ([0.13/alpine/Dockerfile](https://github.com/machinecoin-project/docker-machinecoin-core/blob/master/0.13/alpine/Dockerfile))
-
-- `0.12.1`, `0.12` ([0.12/Dockerfile](https://github.com/machinecoin-project/docker-machinecoin-core/blob/master/0.12/Dockerfile))
-- `0.12.1-alpine`, `0.12-alpine` ([0.12/alpine/Dockerfile](https://github.com/machinecoin-project/docker-machinecoin-core/blob/master/0.12/alpine/Dockerfile))
-
-- `0.11.2`, `0.11` ([0.11/Dockerfile](https://github.com/machinecoin-project/docker-machinecoin-core/blob/master/0.11/Dockerfile))
-- `0.11.2-alpine`, `0.11-alpine` ([0.11/alpine/Dockerfile](https://github.com/machinecoin-project/docker-machinecoin-core/blob/master/0.11/alpine/Dockerfile))
+- `0.16.0`, `0.16` ([0.16/Dockerfile](https://github.com/machinecoin-project/docker-machinecoin-core/blob/master/0.16/Dockerfile))
+- `0.16.0-alpine`, `0.16-alpine` ([0.16/alpine/Dockerfile](https://github.com/machinecoin-project/docker-machinecoin-core/blob/master/0.16/alpine/Dockerfile))
 
 ## Docker
 

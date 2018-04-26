@@ -6,8 +6,8 @@ before_script:
   - IMAGE="machinecoin-core:${VERSION/\//-}"
 
 env:
-  - VERSION=0.14
-  - VERSION=0.14/alpine
+  - VERSION=0.16
+  - VERSION=0.16/alpine
 
 language: bash
 

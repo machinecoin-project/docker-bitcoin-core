@@ -50,7 +50,7 @@ RUN set -ex \
     gpg --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys "$key" ; \
   done
 
-ENV MACHINECOIN_VERSION=0.14.2
+ENV MACHINECOIN_VERSION=0.16.0
 ENV MACHINECOIN_PREFIX=/opt/machinecoin-${MACHINECOIN_VERSION}
 
 RUN wget https://github.com/machinecoin-project/machinecoin-core/releases/machinecoin-core-${MACHINECOIN_VERSION}/SHA256SUMS.asc
@@ -100,7 +100,7 @@ RUN apk --no-cache add \
   su-exec
 
 ENV MACHINECOIN_DATA=/home/machinecoin/.machinecoin
-ENV MACHINECOIN_VERSION=0.14.2
+ENV MACHINECOIN_VERSION=0.16.0
 ENV MACHINECOIN_PREFIX=/opt/machinecoin-${MACHINECOIN_VERSION}
 ENV PATH=${MACHINECOIN_PREFIX}/bin:$PATH
 

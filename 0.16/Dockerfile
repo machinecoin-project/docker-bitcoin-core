@@ -25,7 +25,7 @@ RUN curl -o /usr/local/bin/gosu -fSL https://github.com/tianon/gosu/releases/dow
   && rm /usr/local/bin/gosu.asc \
   && chmod +x /usr/local/bin/gosu
 
-ENV MACHINECOIN_VERSION=0.14.2
+ENV MACHINECOIN_VERSION=0.16.0
 ENV MACHINECOINCOIN_DATA=/home/machinecoin/.machinecoin
 ENV PATH=/opt/machinecoin-${MACHINECOIN_VERSION}/bin:$PATH
 
