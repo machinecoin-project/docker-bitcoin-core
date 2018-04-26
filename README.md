@@ -1,8 +1,8 @@
-# machinecoin-project/machinecoin-core
+# machinecoin/machinecoin-core
 
 A machinecoin-core docker image (originally by @github.com/machinecoin-project).
 
-[![machinecoin-project/machinecoin-core][docker-pulls-image]][docker-hub-url] [![machinecoin-project/machinecoin-core][docker-stars-image]][docker-hub-url] [![machinecoin-project/machinecoin-core][docker-size-image]][docker-hub-url] [![machinecoin-project/machinecoin-core][docker-layers-image]][docker-hub-url]
+[![machinecoin/machinecoin-core][docker-pulls-image]][docker-hub-url] [![machinecoin/machinecoin-core][docker-stars-image]][docker-hub-url] [![machinecoin/machinecoin-core][docker-size-image]][docker-hub-url] [![machinecoin/machinecoin-core][docker-layers-image]][docker-hub-url]
 
 ## Tags
 
@@ -11,9 +11,9 @@ A machinecoin-core docker image (originally by @github.com/machinecoin-project).
 
 **Picking the right tag**
 
-- `machinecoin-project/docker-machinecoin-core:latest`: points to the latest stable release available of Machinecoin Core. Use this only if you know what you're doing as upgrading Machinecoin Core blindly is a risky procedure.
-- `machinecoin-project/docker-machinecoin-core:<version>`: based on a slim Debian image, points to a specific version branch or release of Machinecoin Core. Uses the pre-compiled binaries which are fully tested by the Machinecoin Core team.
-- `machinecoin-project/docker-machinecoin-core:<version>-alpine`: based on Alpine Linux with Berkeley DB 4.8 (cross-compatible build), points to a specific version branch or release of Machinecoin Core. Uses a simple, resource efficient Linux distribution with security in mind, but is not officially supported by the Machinecoin Core team. Use at your own risk.
+- `machinecoin/docker-machinecoin-core:latest`: points to the latest stable release available of Machinecoin Core. Use this only if you know what you're doing as upgrading Machinecoin Core blindly is a risky procedure.
+- `machinecoin/docker-machinecoin-core:<version>`: based on a slim Debian image, points to a specific version branch or release of Machinecoin Core. Uses the pre-compiled binaries which are fully tested by the Machinecoin Core team.
+- `machinecoin/docker-machinecoin-core:<version>-alpine`: based on Alpine Linux with Berkeley DB 4.8 (cross-compatible build), points to a specific version branch or release of Machinecoin Core. Uses a simple, resource efficient Linux distribution with security in mind, but is not officially supported by the Machinecoin Core team. Use at your own risk.
 
 ## What is Machinecoin Core?
 
@@ -26,7 +26,7 @@ Machinecoin Core is a reference client that implements the Machinecoin protocol 
 This image contains the main binaries from the Machinecoin Core project - `machinecoind`, `machinecoin-cli` and `machinecoin-tx`. It behaves like a binary, so you can pass any arguments to the image and they will be forwarded to the `machinecoind` binary:
 
 ```sh
-❯ docker run --rm -it machinecoin-project/machinecoin-core \
+❯ docker run --rm -it machinecoin/machinecoin-core \
   -printtoconsole \
   -regtest=1 \
   -rpcallowip=172.17.0.0/16 \
@@ -38,7 +38,7 @@ _Note: [learn more](#using-rpcauth-for-remote-authentication) about how `-rpcaut
 By default, `machinecoind` will run as user `machinecoin` for security reasons and with its default data dir (`~/.machinecoin`). If you'd like to customize where `machinecoin-core` stores its data, you must use the `MACHINECOIN_DATA` environment variable. The directory will be automatically created with the correct permissions for the `machinecoin` user and `machinecoin-core` automatically configured to use it.
 
 ```sh
-❯ docker run --env MACHINECOIN_DATA=/var/lib/machinecoin-core --rm -it machinecoin-project/machinecoin-core \
+❯ docker run --env MACHINECOIN_DATA=/var/lib/machinecoin-core --rm -it machinecoin/machinecoin-core \
   -printtoconsole \
   -regtest=1
 ```
@@ -46,7 +46,7 @@ By default, `machinecoind` will run as user `machinecoin` for security reasons a
 You can also mount a directory it in a volume under `/home/machinecoin/.machinecoin` in case you want to access it on the host:
 
 ```sh
-❯ docker run -v ${PWD}/data:/home/machinecoin/.machinecoin -it --rm machinecoin-project/machinecoin-core \
+❯ docker run -v ${PWD}/data:/home/machinecoin/.machinecoin -it --rm machinecoin/machinecoin-core \
   -printtoconsole \
   -regtest=1
 ```
@@ -55,7 +55,7 @@ You can optionally create a service using `docker-compose`:
 
 ```yml
 machinecoin-core:
-  image: machinecoin-project/machinecoin-core
+  image: machinecoin/machinecoin-core
   command:
     -printtoconsole
     -regtest=1
@@ -66,7 +66,7 @@ machinecoin-core:
 In order to run a Masternode, additional parameters need to get passed to `machinecoin-cli`:
 
 ```sh
-❯ docker run --rm -it machinecoin-project/machinecoin-core \
+❯ docker run --rm -it machinecoin/machinecoin-core \
   -printtoconsole \
   -rpcallowip=172.17.0.0/16 \
   -rpcauth='foo:7d9ba5ae63c3d4dc30583ff4fe65a67e$9e3634e81c11659e3de036d0bf88f89cd169c1039e6e09607562d54765c649cc' \
@@ -91,7 +91,7 @@ The second option is making a remote procedure call using a username and passwor
 Start by launch the Machinecoin Core daemon:
 
 ```sh
-❯ docker run --rm --name machinecoin-server -it machinecoin-project/machinecoin-core \
+❯ docker run --rm --name machinecoin-server -it machinecoin/machinecoin-core \
   -printtoconsole \
   -regtest=1
 ```
@@ -138,7 +138,7 @@ Now that you have your credentials, you need to start the Machinecoin Core daemo
 Let's opt for the Docker way:
 
 ```sh
-❯ docker run --rm --name machinecoin-server -it machinecoin-project/machinecoin-core \
+❯ docker run --rm --name machinecoin-server -it machinecoin/machinecoin-core \
   -printtoconsole \
   -regtest=1 \
   -rpcallowip=172.17.0.0/16 \
@@ -155,7 +155,7 @@ You can now connect via `machinecoin-cli` or any other [compatible client](https
 To avoid any confusion about whether or not a remote call is being made, let's spin up another container to execute `machinecoin-cli` and connect it via the Docker network using the password generated above:
 
 ```sh
-❯ docker run -it --link machinecoin-server --rm machinecoin-project/machinecoin-core \
+❯ docker run -it --link machinecoin-server --rm machinecoin/machinecoin-core \
   machinecoin-cli \
   -rpcconnect=machinecoin-server \
   -regtest \
@@ -186,7 +186,7 @@ Example for running a node in `regtest` mode mapping JSON-RPC/REST (60332) and P
 docker run --rm -it \
   -p 60332:60332 \
   -p 60333:60333 \
-  machinecoin-project/machinecoin-core \
+  machinecoin/machinecoin-core \
   -printtoconsole \
   -regtest=1 \
   -rpcallowip=172.17.0.0/16 \
@@ -227,12 +227,12 @@ This image is officially supported on Docker version 17.09, with support for old
 
 ## License
 
-[License information](https://github.com/machinecoin/machinecoin/blob/master/COPYING) for the software contained in this image.
+[License information](https://github.com/machinecoin-project/machinecoin/blob/master/COPYING) for the software contained in this image.
 
-[License information](https://github.com/machinecoin-project/docker-machinecoin-core/blob/master/LICENSE) for the [machinecoin-project/docker-machinecoin-core][docker-hub-url] docker project.
+[License information](https://github.com/machinecoin-project/docker-machinecoin-core/blob/master/LICENSE) for the [machinecoin/docker-machinecoin-core][docker-hub-url] docker project.
 
-[docker-hub-url]: https://hub.docker.com/r/machinecoin-project/machinecoin-core
-[docker-layers-image]: https://img.shields.io/imagelayers/layers/machinecoin-project/machinecoin-core/latest.svg?style=flat-square
-[docker-pulls-image]: https://img.shields.io/docker/pulls/machinecoin-project/machinecoin-core.svg?style=flat-square
-[docker-size-image]: https://img.shields.io/imagelayers/image-size/machinecoin-project/machinecoin-core/latest.svg?style=flat-square
-[docker-stars-image]: https://img.shields.io/docker/stars/machinecoin-project/machinecoin-core.svg?style=flat-square
+[docker-hub-url]: https://hub.docker.com/r/machinecoin/machinecoin-core
+[docker-layers-image]: https://img.shields.io/imagelayers/layers/machinecoin/machinecoin-core/latest.svg?style=flat-square
+[docker-pulls-image]: https://img.shields.io/docker/pulls/machinecoin/machinecoin-core.svg?style=flat-square
+[docker-size-image]: https://img.shields.io/imagelayers/image-size/machinecoin/machinecoin-core/latest.svg?style=flat-square
+[docker-stars-image]: https://img.shields.io/docker/stars/machinecoin/machinecoin-core.svg?style=flat-square
