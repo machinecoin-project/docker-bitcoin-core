@@ -61,6 +61,23 @@ machinecoin-core:
     -regtest=1
 ```
 
+### How to run a Masternode using this image
+
+In order to run a Masternode, additional parameters need to get passed to `machinecoin-cli`:
+
+```sh
+❯ docker run --rm -it machinecoin-project/machinecoin-core \
+  -printtoconsole \
+  -rpcallowip=172.17.0.0/16 \
+  -rpcauth='foo:7d9ba5ae63c3d4dc30583ff4fe65a67e$9e3634e81c11659e3de036d0bf88f89cd169c1039e6e09607562d54765c649cc' \
+  -txindex=1 \
+  -masternode=1 \
+  -masternodeprivkey=6zRcrUDU6FkuxRvc76c7aef7ncedz4P4cnhusyMPCitgubtrJDxQGo \
+  -externalip=SERVER_IP:40333
+```
+
+_Note: `masternodeprivkey` will be obtained using `masternode genkey` at the local wallet. Also make sure to edit the local `masternode.conf` file, in order to remotetly manage your Masternode._
+
 ### Using RPC to interact with the daemon
 
 There are two communications methods to interact with a running Machinecoin Core daemon.
@@ -163,12 +180,12 @@ Depending on the network (mode) the Machinecoin Core daemon is running as well a
 
 Ports can be exposed by mapping all of the available ones (using `-P` and based on what `EXPOSE` documents) or individually by adding `-p`. This mode allows assigning a dynamic port on the host (`-p <port>`) or assigning a fixed port `-p <hostPort>:<containerPort>`.
 
-Example for running a node in `regtest` mode mapping JSON-RPC/REST (18443) and P2P (18444) ports:
+Example for running a node in `regtest` mode mapping JSON-RPC/REST (60332) and P2P (60333) ports:
 
 ```sh
 docker run --rm -it \
-  -p 18443:18443 \
-  -p 18444:18444 \
+  -p 60332:60332 \
+  -p 60333:60333 \
   machinecoin-project/machinecoin-core \
   -printtoconsole \
   -regtest=1 \
