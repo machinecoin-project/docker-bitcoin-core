@@ -3,7 +3,7 @@ after_script:
 
 before_script:
   - cd "$VERSION"
-  - IMAGE="machinecoin-core:${VERSION/\//-}"
+  - IMAGE="machinecoin:${VERSION/\//-}"
 
 env:
   - VERSION=0.16
