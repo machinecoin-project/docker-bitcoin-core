@@ -1,35 +1,32 @@
-# ruimarinho/bitcoin-core
+# machinecoin-project/machinecoin-core
 
-A bitcoin-core docker image.
+A machinecoin-core docker image (originally by @github.com/machinecoin-project).
 
-[![ruimarinho/bitcoin-core][docker-pulls-image]][docker-hub-url] [![ruimarinho/bitcoin-core][docker-stars-image]][docker-hub-url] [![ruimarinho/bitcoin-core][docker-size-image]][docker-hub-url] [![ruimarinho/bitcoin-core][docker-layers-image]][docker-hub-url]
+[![machinecoin-project/machinecoin-core][docker-pulls-image]][docker-hub-url] [![machinecoin-project/machinecoin-core][docker-stars-image]][docker-hub-url] [![machinecoin-project/machinecoin-core][docker-size-image]][docker-hub-url] [![machinecoin-project/machinecoin-core][docker-layers-image]][docker-hub-url]
 
 ## Tags
 
-- `0.16.0`, `0.16`, `latest` ([0.16/Dockerfile](https://github.com/ruimarinho/docker-bitcoin-core/blob/master/0.16/Dockerfile))
-- `0.16.0-alpine`, `0.16-alpine` ([0.16/alpine/Dockerfile](https://github.com/ruimarinho/docker-bitcoin-core/blob/master/0.16/alpine/Dockerfile))
-
-- `0.15.1`, `0.15` ([0.15/Dockerfile](https://github.com/ruimarinho/docker-bitcoin-core/blob/master/0.15/Dockerfile))
-- `0.15.1-alpine`, `0.15-alpine` ([0.15/alpine/Dockerfile](https://github.com/ruimarinho/docker-bitcoin-core/blob/master/0.15/alpine/Dockerfile))
+- `0.14.0`, `0.14`, `latest` ([0.14/Dockerfile](https://github.com/machinecoin-project/docker-machinecoin-core/blob/master/0.14/Dockerfile))
+- `0.14.0-alpine`, `0.14-alpine` ([0.14/alpine/Dockerfile](https://github.com/machinecoin-project/docker-machinecoin-core/blob/master/0.14/alpine/Dockerfile))
 
 **Picking the right tag**
 
-- `ruimarinho/bitcoin-core:latest`: points to the latest stable release available of Bitcoin Core. Use this only if you know what you're doing as upgrading Bitcoin Core blindly is a risky procedure.
-- `ruimarinho/bitcoin-core:<version>`: based on a slim Debian image, points to a specific version branch or release of Bitcoin Core. Uses the pre-compiled binaries which are fully tested by the Bitcoin Core team.
-- `ruimarinho/bitcoin-core:<version>-alpine`: based on Alpine Linux with Berkeley DB 4.8 (cross-compatible build), points to a specific version branch or release of Bitcoin Core. Uses a simple, resource efficient Linux distribution with security in mind, but is not officially supported by the Bitcoin Core team. Use at your own risk.
+- `machinecoin-project/docker-machinecoin-core:latest`: points to the latest stable release available of Machinecoin Core. Use this only if you know what you're doing as upgrading Machinecoin Core blindly is a risky procedure.
+- `machinecoin-project/docker-machinecoin-core:<version>`: based on a slim Debian image, points to a specific version branch or release of Machinecoin Core. Uses the pre-compiled binaries which are fully tested by the Machinecoin Core team.
+- `machinecoin-project/docker-machinecoin-core:<version>-alpine`: based on Alpine Linux with Berkeley DB 4.8 (cross-compatible build), points to a specific version branch or release of Machinecoin Core. Uses a simple, resource efficient Linux distribution with security in mind, but is not officially supported by the Machinecoin Core team. Use at your own risk.
 
-## What is Bitcoin Core?
+## What is Machinecoin Core?
 
-Bitcoin Core is a reference client that implements the Bitcoin protocol for remote procedure call (RPC) use. It is also the second Bitcoin client in the network's history. Learn more about Bitcoin Core on the [Bitcoin Developer Reference docs](https://bitcoin.org/en/developer-reference).
+Machinecoin Core is a reference client that implements the Machinecoin protocol for remote procedure call (RPC) use. It is also the second Machinecoin client in the network's history. Learn more about Machinecoin Core on the [Machinecoin Website](https://machinecoin.io).
 
 ## Usage
 
 ### How to use this image
 
-This image contains the main binaries from the Bitcoin Core project - `bitcoind`, `bitcoin-cli` and `bitcoin-tx`. It behaves like a binary, so you can pass any arguments to the image and they will be forwarded to the `bitcoind` binary:
+This image contains the main binaries from the Machinecoin Core project - `machinecoind`, `machinecoin-cli` and `machinecoin-tx`. It behaves like a binary, so you can pass any arguments to the image and they will be forwarded to the `machinecoind` binary:
 
 ```sh
-❯ docker run --rm -it ruimarinho/bitcoin-core \
+❯ docker run --rm -it machinecoin-project/machinecoin-core \
   -printtoconsole \
   -regtest=1 \
   -rpcallowip=172.17.0.0/16 \
@@ -38,18 +35,18 @@ This image contains the main binaries from the Bitcoin Core project - `bitcoind`
 
 _Note: [learn more](#using-rpcauth-for-remote-authentication) about how `-rpcauth` works for remote authentication._
 
-By default, `bitcoind` will run as user `bitcoin` for security reasons and with its default data dir (`~/.bitcoin`). If you'd like to customize where `bitcoin-core` stores its data, you must use the `BITCOIN_DATA` environment variable. The directory will be automatically created with the correct permissions for the `bitcoin` user and `bitcoin-core` automatically configured to use it.
+By default, `machinecoind` will run as user `machinecoin` for security reasons and with its default data dir (`~/.machinecoin`). If you'd like to customize where `machinecoin-core` stores its data, you must use the `MACHINECOIN_DATA` environment variable. The directory will be automatically created with the correct permissions for the `machinecoin` user and `machinecoin-core` automatically configured to use it.
 
 ```sh
-❯ docker run --env BITCOIN_DATA=/var/lib/bitcoin-core --rm -it ruimarinho/bitcoin-core \
+❯ docker run --env MACHINECOIN_DATA=/var/lib/machinecoin-core --rm -it machinecoin-project/machinecoin-core \
   -printtoconsole \
   -regtest=1
 ```
 
-You can also mount a directory it in a volume under `/home/bitcoin/.bitcoin` in case you want to access it on the host:
+You can also mount a directory it in a volume under `/home/machinecoin/.machinecoin` in case you want to access it on the host:
 
 ```sh
-❯ docker run -v ${PWD}/data:/home/bitcoin/.bitcoin -it --rm ruimarinho/bitcoin-core \
+❯ docker run -v ${PWD}/data:/home/machinecoin/.machinecoin -it --rm machinecoin-project/machinecoin-core \
   -printtoconsole \
   -regtest=1
 ```
@@ -57,8 +54,8 @@ You can also mount a directory it in a volume under `/home/bitcoin/.bitcoin` in 
 You can optionally create a service using `docker-compose`:
 
 ```yml
-bitcoin-core:
-  image: ruimarinho/bitcoin-core
+machinecoin-core:
+  image: machinecoin-project/machinecoin-core
   command:
     -printtoconsole
     -regtest=1
@@ -66,26 +63,26 @@ bitcoin-core:
 
 ### Using RPC to interact with the daemon
 
-There are two communications methods to interact with a running Bitcoin Core daemon.
+There are two communications methods to interact with a running Machinecoin Core daemon.
 
-The first one is using a cookie-based local authentication. It doesn't require any special authentication information as running a process locally under the same user that was used to launch the Bitcoin Core daemon allows it to read the cookie file previously generated by the daemon for clients. The downside of this method is that it requires local machine access.
+The first one is using a cookie-based local authentication. It doesn't require any special authentication information as running a process locally under the same user that was used to launch the Machinecoin Core daemon allows it to read the cookie file previously generated by the daemon for clients. The downside of this method is that it requires local machine access.
 
 The second option is making a remote procedure call using a username and password combination. This has the advantage of not requiring local machine access, but in order to keep your credentials safe you should use the newer `rpcauth` authentication mechanism.
 
 #### Using cookie-based local authentication
 
-Start by launch the Bitcoin Core daemon:
+Start by launch the Machinecoin Core daemon:
 
 ```sh
-❯ docker run --rm --name bitcoin-server -it ruimarinho/bitcoin-core \
+❯ docker run --rm --name machinecoin-server -it machinecoin-project/machinecoin-core \
   -printtoconsole \
   -regtest=1
 ```
 
-Then, inside the running `bitcoin-server` container, locally execute the query to the daemon using `bitcoin-cli`:
+Then, inside the running `machinecoin-server` container, locally execute the query to the daemon using `machinecoin-cli`:
 
 ```sh
-❯ docker exec --user bitcoin bitcoin-server bitcoin-cli -regtest getmininginfo
+❯ docker exec --user machinecoin machinecoin-server machinecoin-cli -regtest getmininginfo
 
 {
   "blocks": 0,
@@ -100,18 +97,18 @@ Then, inside the running `bitcoin-server` container, locally execute the query t
 }
 ```
 
-In the background, `bitcoin-cli` read the information automatically from `/home/bitcoin/.bitcoin/regtest/.cookie`. In production, the path would not contain the regtest part.
+In the background, `machinecoin-cli` read the information automatically from `/home/machinecoin/.machinecoin/regtest/.cookie`. In production, the path would not contain the regtest part.
 
 #### Using rpcauth for remote authentication
 
-Before setting up remote authentication, you will need to generate the `rpcauth` line that will hold the credentials for the Bitcoind Core daemon. You can either do this yourself by constructing the line with the format `<user>:<salt>$<hash>` or use the official `rpcauth.py` script to generate this line for you, including a random password that is printed to the console.
+Before setting up remote authentication, you will need to generate the `rpcauth` line that will hold the credentials for the Machinecoind Core daemon. You can either do this yourself by constructing the line with the format `<user>:<salt>$<hash>` or use the official `rpcauth.py` script to generate this line for you, including a random password that is printed to the console.
 
 Example:
 
 ```sh
-❯ curl -sSL https://raw.githubusercontent.com/bitcoin/bitcoin/master/share/rpcauth/rpcauth.py | python - <username>
+❯ curl -sSL https://raw.githubusercontent.com/machinecoin/machinecoin/master/share/rpcauth/rpcauth.py | python - <username>
 
-String to be appended to bitcoin.conf:
+String to be appended to machinecoin.conf:
 rpcauth=foo:7d9ba5ae63c3d4dc30583ff4fe65a67e$9e3634e81c11659e3de036d0bf88f89cd169c1039e6e09607562d54765c649cc
 Your password:
 qDDZdeQ5vw9XXFeVnXT4PZ--tGN2xNjjR4nrtyszZx0=
@@ -119,12 +116,12 @@ qDDZdeQ5vw9XXFeVnXT4PZ--tGN2xNjjR4nrtyszZx0=
 
 Note that for each run, even if the username remains the same, the output will be always different as a new salt and password are generated.
 
-Now that you have your credentials, you need to start the Bitcoin Core daemon with the `-rpcauth` option. Alternatively, you could append the line to a `bitcoin.conf` file and mount it on the container.
+Now that you have your credentials, you need to start the Machinecoin Core daemon with the `-rpcauth` option. Alternatively, you could append the line to a `machinecoin.conf` file and mount it on the container.
 
 Let's opt for the Docker way:
 
 ```sh
-❯ docker run --rm --name bitcoin-server -it ruimarinho/bitcoin-core \
+❯ docker run --rm --name machinecoin-server -it machinecoin-project/machinecoin-core \
   -printtoconsole \
   -regtest=1 \
   -rpcallowip=172.17.0.0/16 \
@@ -136,14 +133,14 @@ Two important notes:
 1. Some shells require escaping the rpcauth line (e.g. zsh), as shown above.
 2. It is now perfectly fine to pass the rpcauth line as a command line argument. Unlike `-rpcpassword`, the content is hashed so even if the arguments would be exposed, they would not allow the attacker to get the actual password.
 
-You can now connect via `bitcoin-cli` or any other [compatible client](https://github.com/ruimarinho/bitcoin-core). You will still have to define a username and password when connecting to the Bitcoin Core RPC server.
+You can now connect via `machinecoin-cli` or any other [compatible client](https://github.com/machinecoin-project/machinecoin-core). You will still have to define a username and password when connecting to the Machinecoin Core RPC server.
 
-To avoid any confusion about whether or not a remote call is being made, let's spin up another container to execute `bitcoin-cli` and connect it via the Docker network using the password generated above:
+To avoid any confusion about whether or not a remote call is being made, let's spin up another container to execute `machinecoin-cli` and connect it via the Docker network using the password generated above:
 
 ```sh
-❯ docker run -it --link bitcoin-server --rm ruimarinho/bitcoin-core \
-  bitcoin-cli \
-  -rpcconnect=bitcoin-server \
+❯ docker run -it --link machinecoin-server --rm machinecoin-project/machinecoin-core \
+  machinecoin-cli \
+  -rpcconnect=machinecoin-server \
   -regtest \
   -rpcuser=foo\
   -stdinrpcpass \
@@ -156,13 +153,13 @@ Enter the password `qDDZdeQ5vw9XXFeVnXT4PZ--tGN2xNjjR4nrtyszZx0=` and hit enter:
 0.00000000
 ```
 
-Note: under Bitcoin Core < 0.16, use `-rpcpassword="qDDZdeQ5vw9XXFeVnXT4PZ--tGN2xNjjR4nrtyszZx0="` instead of `-stdinrpcpass`.
+Note: under Machinecoin Core < 0.16, use `-rpcpassword="qDDZdeQ5vw9XXFeVnXT4PZ--tGN2xNjjR4nrtyszZx0="` instead of `-stdinrpcpass`.
 
 Done!
 
 ### Exposing Ports
 
-Depending on the network (mode) the Bitcoin Core daemon is running as well as the chosen runtime flags, several default ports may be available for mapping.
+Depending on the network (mode) the Machinecoin Core daemon is running as well as the chosen runtime flags, several default ports may be available for mapping.
 
 Ports can be exposed by mapping all of the available ones (using `-P` and based on what `EXPOSE` documents) or individually by adding `-p`. This mode allows assigning a dynamic port on the host (`-p <port>`) or assigning a fixed port `-p <hostPort>:<containerPort>`.
 
@@ -172,7 +169,7 @@ Example for running a node in `regtest` mode mapping JSON-RPC/REST (18443) and P
 docker run --rm -it \
   -p 18443:18443 \
   -p 18444:18444 \
-  ruimarinho/bitcoin-core \
+  machinecoin-project/machinecoin-core \
   -printtoconsole \
   -regtest=1 \
   -rpcallowip=172.17.0.0/16 \
@@ -187,34 +184,34 @@ curl --data-binary '{"jsonrpc":"1.0","id":"1","method":"getnetworkinfo","params"
 
 #### Mainnet
 
-- JSON-RPC/REST: 8332
-- P2P: 8333
+- JSON-RPC/REST: 40332
+- P2P: 40333
 
 #### Testnet
 
-- Testnet JSON-RPC: 18332
-- P2P: 18333
+- Testnet JSON-RPC: 50332
+- P2P: 50333
 
 #### Regtest
 
-- JSON-RPC/REST: 18443 (_since 0.16+_, otherwise _18332_)
-- P2P: 18444
+- JSON-RPC/REST: 60332
+- P2P: 60333
 
 ## Archived tags
 
 For historical reasons, the following tags are still available and automatically updated when the underlying base image (_Alpine Linux_ or _Debian stable_) is updated as well:
 
-- `0.14.2`, `0.14` ([0.14/Dockerfile](https://github.com/ruimarinho/docker-bitcoin-core/blob/master/0.14/Dockerfile))
-- `0.14.2-alpine`, `0.14-alpine` ([0.14/alpine/Dockerfile](https://github.com/ruimarinho/docker-bitcoin-core/blob/master/0.14/alpine/Dockerfile))
+- `0.14.2`, `0.14` ([0.14/Dockerfile](https://github.com/machinecoin-project/docker-machinecoin-core/blob/master/0.14/Dockerfile))
+- `0.14.2-alpine`, `0.14-alpine` ([0.14/alpine/Dockerfile](https://github.com/machinecoin-project/docker-machinecoin-core/blob/master/0.14/alpine/Dockerfile))
 
-- `0.13.2`, `0.13` ([0.13/Dockerfile](https://github.com/ruimarinho/docker-bitcoin-core/blob/master/0.13/Dockerfile))
-- `0.13.2-alpine`, `0.13-alpine` ([0.13/alpine/Dockerfile](https://github.com/ruimarinho/docker-bitcoin-core/blob/master/0.13/alpine/Dockerfile))
+- `0.13.2`, `0.13` ([0.13/Dockerfile](https://github.com/machinecoin-project/docker-machinecoin-core/blob/master/0.13/Dockerfile))
+- `0.13.2-alpine`, `0.13-alpine` ([0.13/alpine/Dockerfile](https://github.com/machinecoin-project/docker-machinecoin-core/blob/master/0.13/alpine/Dockerfile))
 
-- `0.12.1`, `0.12` ([0.12/Dockerfile](https://github.com/ruimarinho/docker-bitcoin-core/blob/master/0.12/Dockerfile))
-- `0.12.1-alpine`, `0.12-alpine` ([0.12/alpine/Dockerfile](https://github.com/ruimarinho/docker-bitcoin-core/blob/master/0.12/alpine/Dockerfile))
+- `0.12.1`, `0.12` ([0.12/Dockerfile](https://github.com/machinecoin-project/docker-machinecoin-core/blob/master/0.12/Dockerfile))
+- `0.12.1-alpine`, `0.12-alpine` ([0.12/alpine/Dockerfile](https://github.com/machinecoin-project/docker-machinecoin-core/blob/master/0.12/alpine/Dockerfile))
 
-- `0.11.2`, `0.11` ([0.11/Dockerfile](https://github.com/ruimarinho/docker-bitcoin-core/blob/master/0.11/Dockerfile))
-- `0.11.2-alpine`, `0.11-alpine` ([0.11/alpine/Dockerfile](https://github.com/ruimarinho/docker-bitcoin-core/blob/master/0.11/alpine/Dockerfile))
+- `0.11.2`, `0.11` ([0.11/Dockerfile](https://github.com/machinecoin-project/docker-machinecoin-core/blob/master/0.11/Dockerfile))
+- `0.11.2-alpine`, `0.11-alpine` ([0.11/alpine/Dockerfile](https://github.com/machinecoin-project/docker-machinecoin-core/blob/master/0.11/alpine/Dockerfile))
 
 ## Docker
 
@@ -222,12 +219,12 @@ This image is officially supported on Docker version 17.09, with support for old
 
 ## License
 
-[License information](https://github.com/bitcoin/bitcoin/blob/master/COPYING) for the software contained in this image.
+[License information](https://github.com/machinecoin/machinecoin/blob/master/COPYING) for the software contained in this image.
 
-[License information](https://github.com/ruimarinho/docker-bitcoin-core/blob/master/LICENSE) for the [ruimarinho/docker-bitcoin-core][docker-hub-url] docker project.
+[License information](https://github.com/machinecoin-project/docker-machinecoin-core/blob/master/LICENSE) for the [machinecoin-project/docker-machinecoin-core][docker-hub-url] docker project.
 
-[docker-hub-url]: https://hub.docker.com/r/ruimarinho/bitcoin-core
-[docker-layers-image]: https://img.shields.io/imagelayers/layers/ruimarinho/bitcoin-core/latest.svg?style=flat-square
-[docker-pulls-image]: https://img.shields.io/docker/pulls/ruimarinho/bitcoin-core.svg?style=flat-square
-[docker-size-image]: https://img.shields.io/imagelayers/image-size/ruimarinho/bitcoin-core/latest.svg?style=flat-square
-[docker-stars-image]: https://img.shields.io/docker/stars/ruimarinho/bitcoin-core.svg?style=flat-square
+[docker-hub-url]: https://hub.docker.com/r/machinecoin-project/machinecoin-core
+[docker-layers-image]: https://img.shields.io/imagelayers/layers/machinecoin-project/machinecoin-core/latest.svg?style=flat-square
+[docker-pulls-image]: https://img.shields.io/docker/pulls/machinecoin-project/machinecoin-core.svg?style=flat-square
+[docker-size-image]: https://img.shields.io/imagelayers/image-size/machinecoin-project/machinecoin-core/latest.svg?style=flat-square
+[docker-stars-image]: https://img.shields.io/docker/stars/machinecoin-project/machinecoin-core.svg?style=flat-square

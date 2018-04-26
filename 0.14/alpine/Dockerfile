@@ -21,8 +21,8 @@ RUN make -j4
 RUN make install
 RUN rm -rf ${BERKELEYDB_PREFIX}/docs
 
-# Build stage for Bitcoin Core
-FROM alpine as bitcoin-core
+# Build stage for Machinecoin Core
+FROM alpine as machinecoin-core
 
 COPY --from=berkeleydb /opt /opt
 
@@ -50,16 +50,16 @@ RUN set -ex \
     gpg --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys "$key" ; \
   done
 
-ENV BITCOIN_VERSION=0.14.2
-ENV BITCOIN_PREFIX=/opt/bitcoin-${BITCOIN_VERSION}
+ENV MACHINECOIN_VERSION=0.14.2
+ENV MACHINECOIN_PREFIX=/opt/machinecoin-${MACHINECOIN_VERSION}
 
-RUN wget https://bitcoin.org/bin/bitcoin-core-${BITCOIN_VERSION}/SHA256SUMS.asc
-RUN wget https://bitcoin.org/bin/bitcoin-core-${BITCOIN_VERSION}/bitcoin-${BITCOIN_VERSION}.tar.gz
+RUN wget https://github.com/machinecoin-project/machinecoin-core/releases/machinecoin-core-${MACHINECOIN_VERSION}/SHA256SUMS.asc
+RUN wget https://github.com/machinecoin-project/machinecoin-core/releases/machinecoin-core-${MACHINECOIN_VERSION}/machinecoin-${MACHINECOIN_VERSION}.tar.gz
 RUN gpg --verify SHA256SUMS.asc
-RUN grep " bitcoin-${BITCOIN_VERSION}.tar.gz\$" SHA256SUMS.asc | sha256sum -c -
+RUN grep " machinecoin-${MACHINECOIN_VERSION}.tar.gz\$" SHA256SUMS.asc | sha256sum -c -
 RUN tar -xzf *.tar.gz
 
-WORKDIR /bitcoin-${BITCOIN_VERSION}
+WORKDIR /machinecoin-${MACHINECOIN_VERSION}
 
 RUN sed -i '/DIST_SUBDIRS/a\ARFLAGS=cr' src/Makefile.am
 RUN sed -i '/AC_PREREQ/a\ARFLAGS=cr' configure.ac
@@ -68,7 +68,7 @@ RUN sed -i '/AX_PROG_CC_FOR_BUILD/a\AR_FLAGS=cr' src/secp256k1/configure.ac
 RUN sed -i s:sys/fcntl.h:fcntl.h: src/compat.h
 RUN ./autogen.sh
 RUN ./configure LDFLAGS=-L`ls -d /opt/db*`/lib/ CPPFLAGS=-I`ls -d /opt/db*`/include/ \
-    --prefix=${BITCOIN_PREFIX} \
+    --prefix=${MACHINECOIN_PREFIX} \
     --mandir=/usr/share/man \
     --disable-tests \
     --disable-bench \
@@ -79,20 +79,18 @@ RUN ./configure LDFLAGS=-L`ls -d /opt/db*`/lib/ CPPFLAGS=-I`ls -d /opt/db*`/incl
     --with-daemon
 RUN make -j4
 RUN make install
-RUN strip ${BITCOIN_PREFIX}/bin/bitcoin-cli
-RUN strip ${BITCOIN_PREFIX}/bin/bitcoin-tx
-RUN strip ${BITCOIN_PREFIX}/bin/bitcoind
-RUN strip ${BITCOIN_PREFIX}/lib/libbitcoinconsensus.a
-RUN strip ${BITCOIN_PREFIX}/lib/libbitcoinconsensus.so.0.0.0
+RUN strip ${MACHINECOIN_PREFIX}/bin/machinecoin-cli
+RUN strip ${MACHINECOIN_PREFIX}/bin/machinecoin-tx
+RUN strip ${MACHINECOIN_PREFIX}/bin/machinecoind
+RUN strip ${MACHINECOIN_PREFIX}/lib/libmachinecoinconsensus.a
+RUN strip ${MACHINECOIN_PREFIX}/lib/libmachinecoinconsensus.so.0.0.0
 
 # Build stage for compiled artifacts
 FROM alpine
 
-LABEL maintainer.0="João Fonseca (@joaopaulofonseca)" \
-  maintainer.1="Pedro Branco (@pedrobranco)" \
-  maintainer.2="Rui Marinho (@ruimarinho)"
+LABEL maintainer.0="Nico Lucciola (@nigho)"
 
-RUN adduser -S bitcoin
+RUN adduser -S machinecoin
 RUN apk --no-cache add \
   boost \
   boost-program_options \
@@ -101,18 +99,18 @@ RUN apk --no-cache add \
   libzmq \
   su-exec
 
-ENV BITCOIN_DATA=/home/bitcoin/.bitcoin
-ENV BITCOIN_VERSION=0.14.2
-ENV BITCOIN_PREFIX=/opt/bitcoin-${BITCOIN_VERSION}
-ENV PATH=${BITCOIN_PREFIX}/bin:$PATH
+ENV MACHINECOIN_DATA=/home/machinecoin/.machinecoin
+ENV MACHINECOIN_VERSION=0.14.2
+ENV MACHINECOIN_PREFIX=/opt/machinecoin-${MACHINECOIN_VERSION}
+ENV PATH=${MACHINECOIN_PREFIX}/bin:$PATH
 
-COPY --from=bitcoin-core /opt /opt
+COPY --from=machinecoin-core /opt /opt
 COPY docker-entrypoint.sh /entrypoint.sh
 
-VOLUME ["/home/bitcoin/.bitcoin"]
+VOLUME ["/home/machinecoin/.machinecoin"]
 
-EXPOSE 8332 8333 18332 18333 18444
+EXPOSE 40332 40333 50332 50333 60332 60333
 
 ENTRYPOINT ["/entrypoint.sh"]
 
-CMD ["bitcoind"]
+CMD ["machinecoind"]

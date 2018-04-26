@@ -3,26 +3,16 @@ after_script:
 
 before_script:
   - cd "$VERSION"
-  - IMAGE="bitcoin-core:${VERSION/\//-}"
+  - IMAGE="machinecoin-core:${VERSION/\//-}"
 
 env:
-  - VERSION=0.16
-  - VERSION=0.16/alpine
-  - VERSION=0.15
-  - VERSION=0.15/alpine
   - VERSION=0.14
   - VERSION=0.14/alpine
-  - VERSION=0.13
-  - VERSION=0.13/alpine
-  - VERSION=0.12
-  - VERSION=0.12/alpine
-  - VERSION=0.11
-  - VERSION=0.11/alpine
 
 language: bash
 
 script:
   - docker build -t "$IMAGE" .
-  - docker run "$IMAGE" --version | grep "Bitcoin Core"
+  - docker run "$IMAGE" --version | grep "Machinecoin Core"
 
 services: docker
