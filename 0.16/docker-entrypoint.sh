@@ -24,3 +24,4 @@ fi
 
 echo
 exec "$@"
+cron start

@@ -4,7 +4,7 @@ LABEL maintainer.0="Nico Lucciola (@nigho)"
 
 RUN useradd -r machinecoin \
   && apt-get update -y \
-  && apt-get install -y curl gnupg \
+  && apt-get install -y curl gnupg python-virtualenv git cron \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
   && set -ex \
@@ -35,6 +35,14 @@ RUN curl -fSL https://github.com/machinecoin-project/machinecoin-core/releases/d
   && grep " machinecoin-${MACHINECOIN_VERSION}-x86_64-linux-gnu.tar.gz\$" SHA256SUMS.asc | sha256sum -c - \
   && tar -xzf *.tar.gz -C /opt \
   && rm *.tar.gz *.asc
+
+# It's time for sentinel
+RUN git clone https://github.com/machinecoin-project/sentinel.git /opt/sentinel \
+  && virtualenv ./opt/sentinel/venv \
+  && ./opt/sentinel/venv/bin/pip install -r requirements.txt
+
+ADD crontab /etc/cron.d/sentinel-cron
+RUN chmod 0644 /etc/cron.d/sentinel-cron
 
 COPY docker-entrypoint.sh /entrypoint.sh
 
