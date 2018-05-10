@@ -30,7 +30,7 @@ ENV MACHINECOINCOIN_DATA=/home/machinecoin/.machinecoin
 ENV MACHINECOINCOIN_CONFIG=/home/machinecoin/.machinecoin/machinecoin.conf
 ENV PATH=/opt/machinecoin-${MACHINECOIN_VERSION}/bin:$PATH
 
-RUN curl -fSL https://github.com/machinecoin-project/machinecoin-core/releases/download/machinecoin-core-${MACHINECOIN_VERSION}/machinecoin-${MACHINECOIN_VERSION}-x86_64-linux-gnu.tar.gz \
+RUN curl -fSL https://github.com/machinecoin-project/machinecoin-core/releases/download/v${MACHINECOIN_VERSION}/machinecoin-${MACHINECOIN_VERSION}-x86_64-linux-gnu.tar.gz \
   && tar -xzf *.tar.gz -C /opt \
   && rm *.tar.gz
 
