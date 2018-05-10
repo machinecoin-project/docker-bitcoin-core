@@ -27,14 +27,12 @@ RUN curl -o /usr/local/bin/gosu -fSL https://github.com/tianon/gosu/releases/dow
 
 ENV MACHINECOIN_VERSION=0.16.0
 ENV MACHINECOINCOIN_DATA=/home/machinecoin/.machinecoin
+ENV MACHINECOINCOIN_CONFIG=/home/machinecoin/.machinecoin/machinecoin.conf
 ENV PATH=/opt/machinecoin-${MACHINECOIN_VERSION}/bin:$PATH
 
-RUN curl -fSL https://github.com/machinecoin-project/machinecoin-core/releases/download/machinecoin-core-${MACHINECOIN_VERSION}/SHA256SUMS.asc \
-  && curl -fSL https://github.com/machinecoin-project/machinecoin-core/releases/download/machinecoin-core-${MACHINECOIN_VERSION}/machinecoin-${MACHINECOIN_VERSION}-x86_64-linux-gnu.tar.gz \
-  && gpg --verify SHA256SUMS.asc \
-  && grep " machinecoin-${MACHINECOIN_VERSION}-x86_64-linux-gnu.tar.gz\$" SHA256SUMS.asc | sha256sum -c - \
+RUN curl -fSL https://github.com/machinecoin-project/machinecoin-core/releases/download/machinecoin-core-${MACHINECOIN_VERSION}/machinecoin-${MACHINECOIN_VERSION}-x86_64-linux-gnu.tar.gz \
   && tar -xzf *.tar.gz -C /opt \
-  && rm *.tar.gz *.asc
+  && rm *.tar.gz
 
 # It's time for sentinel
 RUN git clone https://github.com/machinecoin-project/sentinel.git /opt/sentinel \
@@ -48,7 +46,7 @@ COPY docker-entrypoint.sh /entrypoint.sh
 
 VOLUME ["/home/machinecoin/.machinecoin"]
 
-EXPOSE 40332 40333 50332 50333 60332 60333
+EXPOSE 40332 40333
 
 ENTRYPOINT ["/entrypoint.sh"]
 
