@@ -48,6 +48,7 @@ VOLUME ["/home/machinecoin/.machinecoin"]
 
 EXPOSE 40332 40333
 
+RUN chmod +x /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
 
 CMD ["machinecoind"]
