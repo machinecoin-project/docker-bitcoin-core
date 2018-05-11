@@ -2,8 +2,7 @@ FROM debian:stable-slim
 
 LABEL maintainer.0="Nico Lucciola (@nigho)"
 
-RUN useradd -r machinecoin \
-  && apt-get update -y \
+RUN apt-get update -y \
   && apt-get install -y curl gnupg python-virtualenv git cron wget \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
@@ -33,5 +32,3 @@ WORKDIR /machinecoin
 
 RUN chmod +x /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
-
-CMD ["machinecoind"]
