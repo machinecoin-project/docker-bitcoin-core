@@ -8,7 +8,7 @@ RUN apt-get update -y \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
   && set -ex
 
-ENV MACHINECOIN_VERSION=0.16.0
+ENV MACHINECOIN_VERSION=0.16.1
 ENV MACHINECOIN_DATA=/home/machinecoin/.machinecoin
 ENV PATH=/opt/machinecoin-${MACHINECOIN_VERSION}/bin:$PATH
 
