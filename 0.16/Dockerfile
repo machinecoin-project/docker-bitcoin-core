@@ -27,7 +27,6 @@ RUN curl -o /usr/local/bin/gosu -fSL https://github.com/tianon/gosu/releases/dow
 
 ENV MACHINECOIN_VERSION=0.16.0
 ENV MACHINECOIN_DATA=/home/machinecoin/.machinecoin
-ENV MACHINECOIN_CONFIG=/home/machinecoin/.machinecoin/machinecoin.conf
 ENV PATH=/opt/machinecoin-${MACHINECOIN_VERSION}/bin:$PATH
 
 RUN wget https://github.com/machinecoin-project/machinecoin-core/releases/download/v${MACHINECOIN_VERSION}/machinecoin-${MACHINECOIN_VERSION}-x86_64-linux-gnu.tar.gz \
