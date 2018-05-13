@@ -9,10 +9,11 @@ RUN apt-get update -y \
   && set -ex
 
 ENV MACHINECOIN_VERSION=0.16.1
+ENV MACHINECOIN_VERSION_TAG=0.16.1.2
 ENV MACHINECOIN_DATA=/home/machinecoin/.machinecoin
 ENV PATH=/opt/machinecoin-${MACHINECOIN_VERSION}/bin:$PATH
 
-RUN wget https://github.com/machinecoin-project/machinecoin-core/releases/download/v${MACHINECOIN_VERSION}/machinecoin-${MACHINECOIN_VERSION}-x86_64-linux-gnu.tar.gz \
+RUN wget https://github.com/machinecoin-project/machinecoin-core/releases/download/v${MACHINECOIN_VERSION_TAG}/machinecoin-${MACHINECOIN_VERSION}-x86_64-linux-gnu.tar.gz \
   && tar -xzf *.tar.gz -C /opt \
   && rm *.tar.gz
 
