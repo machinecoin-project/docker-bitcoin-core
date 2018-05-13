@@ -2,7 +2,7 @@
 
 set -exuo pipefail
 
-MACHINECOIN_DIR=/machinecoin
+MACHINECOIN_DIR=/root/.machinecoin
 MACHINECOIN_CONF=${MACHINECOIN_DIR}/machinecoin.conf
 
 # If config doesn't exist, initialize with sane defaults for running a

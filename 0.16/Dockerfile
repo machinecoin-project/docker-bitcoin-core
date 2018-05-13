@@ -27,9 +27,9 @@ RUN chmod 0644 /etc/cron.d/sentinel-cron
 
 COPY docker-entrypoint.sh /entrypoint.sh
 
-VOLUME ["/machinecoin"]
+VOLUME ["/root/.machinecoin"]
 EXPOSE 40332 40333
-WORKDIR /machinecoin
+WORKDIR /root/.machinecoin
 
 RUN chmod +x /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
