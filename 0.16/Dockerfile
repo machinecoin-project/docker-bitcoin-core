@@ -1,6 +1,9 @@
-FROM debian:stable-slim
+FROM ubuntu:16.04
 
 LABEL maintainer.0="Nico Lucciola (@nigho)"
+
+ADD https://github.com/just-containers/s6-overlay/releases/download/v1.11.0.1/s6-overlay-amd64.tar.gz /tmp/
+RUN tar xzf /tmp/s6-overlay-amd64.tar.gz -C /
 
 RUN apt-get update -y \
   && apt-get install -y curl gnupg python-virtualenv git cron wget \
@@ -26,8 +29,9 @@ RUN git clone https://github.com/machinecoin-project/sentinel.git /opt/sentinel 
 COPY sentinel.conf /opt/sentinel/sentinel.conf
 
 ADD crontab /etc/cron.d/sentinel-cron
-RUN chmod 0644 /etc/cron.d/sentinel-cron
-RUN service cron start
+RUN chmod 0600 /etc/cron.d/sentinel-cron
+
+COPY ./services.d /etc/services.d
 
 COPY docker-entrypoint.sh /entrypoint.sh
 
