@@ -20,7 +20,10 @@ RUN wget https://github.com/machinecoin-project/machinecoin-core/releases/downlo
 # It's time for sentinel
 RUN git clone https://github.com/machinecoin-project/sentinel.git /opt/sentinel \
   && virtualenv ./opt/sentinel/venv \
-  && ./opt/sentinel/venv/bin/pip install -r /opt/sentinel/requirements.txt
+  && ./opt/sentinel/venv/bin/pip install -r /opt/sentinel/requirements.txt \
+  && rm /opt/sentinel/sentinel.conf
+
+COPY sentinel.conf /opt/sentinel/sentinel.conf
 
 ADD crontab /etc/cron.d/sentinel-cron
 RUN chmod 0644 /etc/cron.d/sentinel-cron
