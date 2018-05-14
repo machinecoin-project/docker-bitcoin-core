@@ -26,7 +26,7 @@ RUN git clone https://github.com/machinecoin-project/sentinel.git /opt/sentinel 
 COPY sentinel.conf /opt/sentinel/sentinel.conf
 
 ADD crontab /etc/cron.d/sentinel-cron
-RUN chmod 0644 /etc/cron.d/RUN chmod 0644 /etc/cron.d/cool-task
+RUN chmod 0644 /etc/cron.d/sentinel-cron
 RUN service cron start
 
 COPY docker-entrypoint.sh /entrypoint.sh
