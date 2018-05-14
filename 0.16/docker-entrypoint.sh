@@ -33,10 +33,10 @@ txindex=1
 EOF
 fi
 
-cron start
-
 if [ $# -eq 0 ]; then
   exec machinecoind -datadir=${MACHINECOIN_DIR} -conf=${MACHINECOIN_CONF}
 else
   exec "$@"
 fi
+
+crond -f
