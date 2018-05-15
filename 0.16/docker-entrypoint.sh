@@ -9,6 +9,7 @@ MACHINECOIN_CONF=${MACHINECOIN_DIR}/machinecoin.conf
 # non-mining node.
 
 if [ ! -e "${MACHINECOIN_CONF}" ]; then
+  cp -r /opt/sentinel ${MACHINECOIN_DIR}
   cat >${MACHINECOIN_CONF} <<EOF
 # For documentation on the config file, see
 #
