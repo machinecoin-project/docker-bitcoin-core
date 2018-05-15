@@ -22,9 +22,6 @@ server=1
 rpcuser=${MACHINECOIN_RPCUSER:-machinecoin}
 rpcpassword=${MACHINECOIN_RPCPASSWORD:-changemeplzasap}
 
-rpcallowip=127.0.0.0/24
-rpcallowip=172.17.0.0/16
-
 printtoconsole=${MACHINECOIN_PRINTTOCONSOLE:-1}
 
 masternode=${MACHINECOIN_MASTERNODE:-0}

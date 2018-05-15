@@ -2,11 +2,8 @@ FROM ubuntu:16.04
 
 LABEL maintainer.0="Nico Lucciola (@nigho)"
 
-ADD https://github.com/just-containers/s6-overlay/releases/download/v1.11.0.1/s6-overlay-amd64.tar.gz /tmp/
-RUN tar xzf /tmp/s6-overlay-amd64.tar.gz -C /
-
 RUN apt-get update -y \
-  && apt-get install -y curl gnupg git cron wget \
+  && apt-get install -y curl git wget \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
   && set -ex
