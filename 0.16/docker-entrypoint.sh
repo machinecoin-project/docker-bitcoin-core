@@ -24,6 +24,9 @@ rpcpassword=${MACHINECOIN_RPCPASSWORD:-changemeplzasap}
 
 printtoconsole=${MACHINECOIN_PRINTTOCONSOLE:-1}
 
+rpcallowip=127.0.0.0/24
+rpcallowip=172.17.0.0/16
+
 masternode=${MACHINECOIN_MASTERNODE:-0}
 masternodeprivkey=${MACHINECOIN_MASTERNODE_KEY:-0}
 externalip=${MACHINECOIN_MASTERNODE_IP:-127.0.0.1}:40333
