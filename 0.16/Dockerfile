@@ -17,6 +17,9 @@ RUN wget https://github.com/machinecoin-project/machinecoin-core/releases/downlo
   && tar -xzf *.tar.gz -C /opt \
   && rm *.tar.gz
 
+RUN git clone https://github.com/machinecoin-project/sentinel.git /root/.machinecoin/sentinel
+COPY sentinel.conf /root/.machinecoin/sentinel/sentinel.conf
+
 COPY docker-entrypoint.sh /entrypoint.sh
 
 VOLUME ["/root/.machinecoin"]
